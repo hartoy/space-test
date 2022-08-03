@@ -190,18 +190,20 @@ a {
   font-size: 20px;
   font-family: "Bellefair", serif;
 }
+
+.index-trabel-text {
+  color: #d0d6f9;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 4.75px;
+  font-size: 16px;
+}
+
 .index-text {
   font-size: 15px;
   padding-left: 5vw;
   padding-right: 5vw;
   text-align: center;
   color: white;
-}
-.index-trabel-text {
-  color: #d0d6f9;
-  font-family: "Barlow Condensed", sans-serif;
-  letter-spacing: 4.75px;
-  font-size: 16px;
 }
 
 .home-row {
