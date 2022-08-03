@@ -116,7 +116,8 @@ if (window.location.href.indexOf("index") != -1) {
 }
 
 function exploreButtonHover() {
-  console.log("Lopo")
+  const exploreBtn = document.getElementById("explore-button")
+  console.log(exploreBtn)
 }
 
 //Crew js //////////////////////////////////////////////////////////////////////////////////////////////

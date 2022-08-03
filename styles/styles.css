@@ -184,6 +184,12 @@ a {
   transition: 0.5s;
   margin-right: 0px;
 }
+
+.explore-button:hover {
+  box-shadow: 0px 0px 0px 40px #979797;
+  transition: 0.5s;
+}
+
 .explore-button p {
   text-align: center;
   line-height: 150px;
