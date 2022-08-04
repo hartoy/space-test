@@ -1,6 +1,7 @@
 const url = "./data.json"
 const destinationRow = document.querySelector("#destination-row")
 let index = 0
+let global = null
 
 async function getData() {
   const response = await fetch(url)
@@ -8,12 +9,17 @@ async function getData() {
   return data1
 }
 
+;(async () => {
+  const data = await getData()
+  global = data
+})()
+
 //destination js //////////////////////////////////////////////////////////////////////////////////////////////
 async function showHTML() {
-  const data = await getData()
-  const destinations = data.destinations
-
+  data = global ? global : await getData()
+  destinations = data.destinations
   console.log(destinations)
+
   const html = `
        <div class="row destination">
                 <div class="col-lg-6 d-flex flex-column justify-content-center">
@@ -25,10 +31,7 @@ async function showHTML() {
 
                 <div class="destination-selection mt-4">
                     <ul class="d-flex justify-content-center destination-list">
-                        <li id="moon-button" >MOON</li>
-                        <li id="mars-button" >MARS</li>
-                        <li id="europa-button" >EUROPA</li>
-                        <li id="titan-button" >TITAN</li>
+                      
                     </ul>
                 </div>
                 <h2 id="destination-title" class="destination-title">${destinations[index].name}</h2>
@@ -52,20 +55,48 @@ async function showHTML() {
         </div>
       `
   destinationRow.innerHTML = html
-  const moonButton = document.getElementById("moon-button")
-  const marsButton = document.getElementById("mars-button")
-  const europaButton = document.getElementById("europa-button")
-  const titanButton = document.getElementById("titan-button")
 
-  function handleClick(value) {
-    index = value
-    showHTML()
+  const listPadre = document.querySelector(".destination-list")
+  console.log(listPadre)
+
+  ////////generando dinamicamente los li //////////////////////////////////
+  Object.entries(destinations).forEach(([key, value]) => {
+    const nuevoLi = document.createElement("li")
+    const textLi = document.createTextNode(value.name)
+    listPadre.appendChild(nuevoLi)
+    nuevoLi.appendChild(textLi)
+    nuevoLi.classList.add("destination-nav")
+    nuevoLi.setAttribute("data-id", key)
+  })
+
+  ////////capturando y cambiando valores segun index //////////////////////////////////
+  function changeDestination(index) {
+    console.log("entro a changeDestination")
+    var imgDestination = document.getElementById("img-destination").src
+    var titleDestination =
+      document.getElementById("destination-title").innerHTML
+    console.log("titulo sin asignar", titleDestination)
+    var textDestination = document.getElementById("destination-text").innerHTML
+    var kmDestination = document.getElementById("destination-km").innerHTML
+    var daysDestination = document.getElementById("destination-days").innerHTML
+    imgDestination = destinations[index].images.png
+    titleDestination = destinations[index].name
+    textDestination = destinations[index].description
+    kmDestination = destinations[index].distance
+    daysDestination = destinations[index].travel
+    console.log("titulo nuevo asignado", titleDestination)
   }
 
-  moonButton.addEventListener("click", () => handleClick(0))
-  marsButton.addEventListener("click", () => handleClick(1))
-  europaButton.addEventListener("click", () => handleClick(2))
-  titanButton.addEventListener("click", () => handleClick(3))
+  ////////uniendo index con data id de cada li y pasando funcion changeDestination //////////////////////////////////
+  const destButtons = document.getElementsByClassName("destination-nav")
+  for (const button of destButtons) {
+    button.addEventListener("click", function buttonClick() {
+      var butIndex = button.dataset.id
+      index = butIndex
+      console.log("index", index)
+      changeDestination(index)
+    })
+  }
 }
 
 if (typeof destinationRow != undefined && destinationRow != null) {
@@ -73,7 +104,7 @@ if (typeof destinationRow != undefined && destinationRow != null) {
 }
 
 //Start of navigation bar js ////////////////////////////////////////////////////////////////////////////////////////////////
-console.log("Script loaded nav bar")
+
 var menu1 = new Image()
 menu1.src = "assets/shared/icon-hamburger.svg"
 var menu2 = new Image()
@@ -113,11 +144,6 @@ if (window.location.href.indexOf("index") != -1) {
 } else if (window.location.href.indexOf("tech") != -1) {
   techNavBtn.classList.add("nav-btn-active")
   homeNavBtn.classList.remove("nav-btn-active")
-}
-
-function exploreButtonHover() {
-  const exploreBtn = document.getElementById("explore-button")
-  console.log(exploreBtn)
 }
 
 //Crew js //////////////////////////////////////////////////////////////////////////////////////////////

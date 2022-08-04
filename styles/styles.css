@@ -387,7 +387,7 @@ ul {
   list-style-type: none;
 }
 
-.destination-list li {
+.destination-nav {
   margin-right: 35px;
   color: #d0d6f9;
   font-family: "Barlow Condensed", sans-serif;
@@ -395,9 +395,10 @@ ul {
   letter-spacing: 2.7px;
   cursor: pointer;
   border: 2px solid transparent;
+  text-transform: uppercase;
 }
 
-.destination-list li:hover {
+.destination-nav:hover {
   border-bottom: 2px solid white;
 }
 
