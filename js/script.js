@@ -91,7 +91,6 @@ async function showHTML() {
     button.addEventListener("click", function buttonClick() {
       var butIndex = button.dataset.id
       index = butIndex
-      console.log("index", index)
       changeDestination(index)
     })
   }
