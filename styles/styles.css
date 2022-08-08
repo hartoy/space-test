@@ -472,6 +472,10 @@ ul {
     margin-bottom: 20px;
   }
 
+  .destination-list{
+    margin-left: 20px;
+  }
+
   .destination-list li {
     font-size: 16px;
   }

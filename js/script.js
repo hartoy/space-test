@@ -2,17 +2,14 @@ const url = "./data.json"
 const destinationRow = document.querySelector("#destination-row")
 let index = 0
 let global = null
+let destinations = []
 
 async function getData() {
+  console.log("getData")
   const response = await fetch(url)
   const data1 = await response.json()
-  return data1
+  return (global = data1)
 }
-
-;(async () => {
-  const data = await getData()
-  global = data
-})()
 
 //destination js //////////////////////////////////////////////////////////////////////////////////////////////
 async function showHTML() {
@@ -60,35 +57,36 @@ async function showHTML() {
   console.log(listPadre)
 
   ////////generando dinamicamente los li //////////////////////////////////
-  Object.entries(destinations).forEach(([key, value]) => {
-    const nuevoLi = document.createElement("li")
-    const textLi = document.createTextNode(value.name)
-    listPadre.appendChild(nuevoLi)
-    nuevoLi.appendChild(textLi)
-    nuevoLi.classList.add("destination-nav")
-    nuevoLi.setAttribute("data-id", key)
-  })
+  const buttonMaker = (arrayDestination) => {
+    for (let index = 0; index < arrayDestination.length; index++) {
+      const nuevoLi = document.createElement("li")
+      const textLi = document.createTextNode(arrayDestination[index].name)
+      listPadre.appendChild(nuevoLi)
+      nuevoLi.appendChild(textLi)
+      nuevoLi.classList.add("destination-nav")
+      nuevoLi.setAttribute("data-id", index)
+    }
+  }
+  buttonMaker(data.destinations)
 
   ////////capturando y cambiando valores segun index //////////////////////////////////
-  function changeDestination(index) {
+  function changeDestination(number) {
     console.log("entro a changeDestination")
-    var imgDestination = document.getElementById("img-destination").src
-    var titleDestination =
-      document.getElementById("destination-title").innerHTML
-    console.log("titulo sin asignar", titleDestination)
-    var textDestination = document.getElementById("destination-text").innerHTML
-    var kmDestination = document.getElementById("destination-km").innerHTML
-    var daysDestination = document.getElementById("destination-days").innerHTML
-    imgDestination = destinations[index].images.png
-    titleDestination = destinations[index].name
-    textDestination = destinations[index].description
-    kmDestination = destinations[index].distance
-    daysDestination = destinations[index].travel
-    console.log("titulo nuevo asignado", titleDestination)
+    var imgDestination = document.getElementById("img-destination")
+    var titleDestination = document.getElementById("destination-title")
+    var textDestination = document.getElementById("destination-text")
+    var kmDestination = document.getElementById("destination-km")
+    var daysDestination = document.getElementById("destination-days")
+    imgDestination.src = destinations[number].images.png
+    titleDestination.innerHTML = destinations[number].name
+    textDestination.innerHTML = destinations[number].description
+    kmDestination.innerHTML = destinations[number].distance
+    daysDestination.innerHTML = destinations[number].travel
   }
 
   ////////uniendo index con data id de cada li y pasando funcion changeDestination //////////////////////////////////
   const destButtons = document.getElementsByClassName("destination-nav")
+  console.log(destButtons)
   for (const button of destButtons) {
     button.addEventListener("click", function buttonClick() {
       var butIndex = button.dataset.id
