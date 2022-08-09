@@ -180,7 +180,7 @@ a {
 }
 
 .explore-button {
-  margin-top: 10vh;
+  margin-top: 80px;
   width: 150px;
   height: 150px;
   border-radius: 100%;
@@ -201,14 +201,6 @@ a {
   font-family: "Bellefair", serif;
 }
 
-.index-text {
-  font-size: 15px;
-  padding-left: 5vw;
-  padding-right: 5vw;
-  text-align: center;
-  color: white;
-}
-
 .index-trabel-text {
   color: #d0d6f9;
   font-family: "Barlow Condensed", sans-serif;
@@ -217,7 +209,7 @@ a {
 }
 
 .home-row {
-  margin-top: 10vh;
+  margin-top: 80px;
 }
 .index-space {
   color: white;
@@ -228,10 +220,11 @@ a {
 
 .index-text {
   font-size: 15px;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  padding-left: 10px;
+  padding-right: 10px;
   color: #d0d6f9;
   font-family: "Barlow Condensed", sans-serif;
+  text-align: center;
 }
 
 @media only screen and (min-width: 768px) {
@@ -244,14 +237,15 @@ a {
 
   .index-text {
     font-size: 18px;
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   .explore-button p {
     text-align: center;
     font-size: 32px;
     font-family: "Bellefair", serif;
+    margin-bottom: 0px;
   }
 
   .explore-button {
@@ -265,7 +259,7 @@ a {
 
 @media only screen and (min-width: 1280px) {
   .home-row {
-    margin-top: 30vh;
+    margin-top: 230px;
   }
 
   .index-text {
@@ -316,7 +310,7 @@ a {
     border-radius: 100%;
     background-color: white;
     transition: 0.5s;
-    margin-right: 5vw;
+    margin-right: 30px;
   }
 }
 
