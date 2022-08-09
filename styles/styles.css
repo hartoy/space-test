@@ -41,6 +41,7 @@
 
 .navbar-links li {
   list-style: none;
+  border-bottom: 2px solid white;
 }
 
 .navbar-links li a {
@@ -53,11 +54,11 @@
 }
 
 .navbar-links li:hover {
-  border-bottom: 3px solid rgb(192, 192, 192);
+  border-bottom: 2px solid white;
 }
 
 .nav-btn-active {
-  border-bottom: 3px solid black;
+  border-bottom: 2px solid black !important;
 }
 
 .mobile-menu {
@@ -89,8 +90,7 @@
   z-index: 100;
   top: 120%;
   right: 0%;
-  background-color: rgb(255, 255, 255);
-  opacity: 0.9;
+  background-color: white;
 }
 
 .navbar-links ul li a {
@@ -134,13 +134,17 @@
     margin-bottom: 20px;
     color: white !important;
   }
+   
+    .navbar-links li {
+      border-bottom: 3px transparent;
+    }
 
   .navbar-links li:hover {
-    border-bottom: 3px solid rgb(192, 192, 192);
+    border-bottom: 3px solid white(192, 192, 192);
   }
 
-  .nav-btn-active {
-    border-bottom: 3px solid white;
+  .nav-btn-active  {
+    border-bottom: 3px solid white !important;
   }
 }
 
