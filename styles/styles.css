@@ -614,7 +614,7 @@ ul {
 .nav-circles {
   background-color: white;
   transition: 0.5s;
-  opacity: 17.44%;
+  opacity: 40%;
   border-radius: 25px;
   width: 10px;
   height: 10px;
@@ -633,6 +633,13 @@ ul {
   transition: 0.5s;
   opacity: 100%;
 }
+
+@media only screen and (width: 540px) {
+ .crew-img{
+  margin-top: -65vh;
+ }
+}
+
 
 @media only screen and (min-width: 768px) {
   .crew-img {
