@@ -148,29 +148,34 @@ if (window.location.href.indexOf("index") != -1) {
 const crewRow = document.querySelector("#crew-row")
 
 async function crewHTML() {
-  const data = await getData()
-  const crew = data.crew
-
+  data = global ? global : await getData()
+  crew = data.crew
   console.log(crew)
+
   const crewwHtml = `
        <div id ="crew-row">
                 <div class="col-12 col-lg-6">
                     <div class="crew-top">
                     <p class="text-center text-md-start mt-4 top-title-destination title-crew"> <span class="me-3">02</span>MEET YOUR CREEW</p>
                     </div>
-
-                    <div class="crew-top-bot">
-                        <div class="crew-nav justify-content-center justify-content-xl-start">
-                            <div class="nav-circles" id="navcirc1"></div>
-                            <div class="nav-circles" id="navcirc2"></div>
-                            <div class="nav-circles" id="navcirc3"></div>
-                            <div class="nav-circles" id="navcirc4"></div>
-                        </div>
+                     <div class="crew-info col order-1 big-screen">
                         <p id="crew-position" class="crew-position text-center text-lg-start">${crew[index].role}</p>
                         <p id="crew-name" class="crew-name text-center text-xl-start">${crew[index].name}</p>
                         <p id="crew-text" class="crew-text text-center text-xl-start">
                             ${crew[index].bio}
                         </p>
+                        </div>
+                    <div class="crew-top-bot">
+                        <div class="crew-nav justify-content-center justify-content-xl-start col order-2">
+                            
+                        </div>
+                        <div class="crew-info col order-1 small-screen">
+                        <p id="crew-position" class="crew-position text-center text-lg-start">${crew[index].role}</p>
+                        <p id="crew-name" class="crew-name text-center text-xl-start">${crew[index].name}</p>
+                        <p id="crew-text" class="crew-text text-center text-xl-start">
+                            ${crew[index].bio}
+                        </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
@@ -181,21 +186,45 @@ async function crewHTML() {
                 </div>
              </div>
       `
-  crewRow.innerHTML = crewwHtml
-  const navCirc1 = document.getElementById("navcirc1")
-  const navCirc2 = document.getElementById("navcirc2")
-  const navCirc3 = document.getElementById("navcirc3")
-  const navCirc4 = document.getElementById("navcirc4")
 
-  function handleClick(value) {
-    index = value
-    crewHTML()
+  const navPadre = document.querySelector(".crew-nav")
+  console.log(navPadre)
+
+  ////////generando dinamicamente los div //////////////////////////////////
+  const divMaker = (crewDestination) => {
+    for (let index = 0; index < crewDestination.length; index++) {
+      const nuevoDiv = document.createElement("div")
+      navPadre.appendChild(nuevoDiv)
+      nuevoDiv.classList.add("nav-circles")
+      nuevoDiv.setAttribute("data-id", index)
+    }
+  }
+  divMaker(data.crew)
+
+  ////////capturando y cambiando valores segun index //////////////////////////////////
+  function changeCrew(number) {
+    var crewPosition = document.getElementById("crew-position")
+    var crewName = document.getElementById("crew-name")
+    var crewText = document.getElementById("crew-text")
+    var crewImg = document.getElementById("crew-img")
+
+    crewImg.src = crew[number].images.png
+    crewText.innerHTML = crew[number].bio
+    crewName.innerHTML = crew[number].name
+    crewPosition.innerHTML = crew[number].role
   }
 
-  navCirc1.addEventListener("click", () => handleClick(0))
-  navCirc2.addEventListener("click", () => handleClick(1))
-  navCirc3.addEventListener("click", () => handleClick(2))
-  navCirc4.addEventListener("click", () => handleClick(3))
+  ////////uniendo index con data id de cada div y pasando funcion changeCrew //////////////////////////////////
+  const navCircles = document.getElementsByClassName("nav-circles")
+  console.log(navCircles)
+  for (const button of navCircles) {
+    button.addEventListener("click", function buttonClick() {
+      console.log(button)
+      var butIndex = button.dataset.id
+      index = butIndex
+      changeCrew(index)
+    })
+  }
 }
 
 if (typeof crewRow != undefined && crewRow != null) {
@@ -207,10 +236,10 @@ if (typeof crewRow != undefined && crewRow != null) {
 const techRow = document.querySelector("#tech-row")
 
 async function techHTML() {
-  const data = await getData()
-  const tech = data.technology
-
+  data = global ? global : await getData()
+  tech = data.technology
   console.log(tech)
+
   const techhHtml = `
             <div id="tech-row" class="row ">
                 <div class="col-lg-7">
@@ -219,15 +248,13 @@ async function techHTML() {
 
                     <div class="tech-content">
                         <div class="tech-num d-flex justify-content-center">
-                         <div class="num" id="tech1">1</div>
-                         <div class="num" id="tech2">2</div>
-                         <div class="num" id="tech3">3</div>
+                         
                         </div>
                       <div class="tech-bot mt-5">
-                        <p class="tech-subtitle text-center text-xl-start">THE TERMINOLOGY...</p>
-                        <p class="tech-title text-center text-xl-start">${tech[index].name}</p>
-                        <p class="tech-text text-center text-xl-start">${tech[index].description}</p>
-
+                        <p id="tech-subtitleId" class="tech-subtitle text-center text-xl-start">THE TERMINOLOGY...</p>
+                        <p id="tech-titleId" class="tech-title text-center text-xl-start">${tech[index].name}</p>
+                        <p id="tech-textId" class="tech-text text-center text-xl-start">${tech[index].description}</p>
+                         
                       </div>
                     </div>
 
@@ -235,8 +262,8 @@ async function techHTML() {
 
                 <div class="col-lg-5">
                     <div class="tech-img">
-                        <img class="techimg" src=${tech[index].images.landscape} alt="">
-                        <img class="techimg-big" src=${tech[index].images.portrait} alt="">
+                        <img id="techimgId" class="techimg" src=${tech[index].images.landscape} alt="">
+                        <img id="techimg-bigId" class="techimg-big" src=${tech[index].images.portrait} alt="">
                     </div>
                 </div>
                    
@@ -244,18 +271,45 @@ async function techHTML() {
        
       `
   techRow.innerHTML = techhHtml
-  const tech1 = document.getElementById("tech1")
-  const tech2 = document.getElementById("tech2")
-  const tech3 = document.getElementById("tech3")
 
-  function handleClick(value) {
-    index = value
-    techHTML()
+  const techPadre = document.querySelector(".tech-num")
+
+  ////////generando dinamicamente los div //////////////////////////////////
+  const techMaker = (arrayTech) => {
+    for (let index = 0; index < arrayTech.length; index++) {
+      const nuevoDiv = document.createElement("div")
+      const textNuevoDiv = document.createTextNode(index + 1)
+      techPadre.appendChild(nuevoDiv)
+      nuevoDiv.appendChild(textNuevoDiv)
+      nuevoDiv.classList.add("numcircles")
+      nuevoDiv.setAttribute("data-id", index)
+    }
+  }
+  techMaker(data.technology)
+
+  ////////capturando y cambiando valores segun index //////////////////////////////////
+  function changeTech(number) {
+    var techTitle = document.getElementById("tech-titleId")
+    var techText = document.getElementById("tech-textId")
+    var techImg = document.getElementById("techimgId")
+    var techImgBig = document.getElementById("techimg-bigId")
+
+    techImg.src = tech[number].images.landscape
+    techImgBig.src = tech[number].images.portrait
+    techText.innerHTML = tech[number].description
+    techTitle.innerHTML = tech[number].name
   }
 
-  tech1.addEventListener("click", () => handleClick(0))
-  tech2.addEventListener("click", () => handleClick(1))
-  tech3.addEventListener("click", () => handleClick(2))
+  ////////uniendo index con data id de cada div y pasando funcion changeTech //////////////////////////////////
+  const techNumbers = document.getElementsByClassName("numcircles")
+  console.log(techNumbers)
+  for (const button of techNumbers) {
+    button.addEventListener("click", function buttonClick() {
+      var butIndex = button.dataset.id
+      index = butIndex
+      changeTech(index)
+    })
+  }
 }
 
 if (typeof techRow != undefined && techRow != null) {
